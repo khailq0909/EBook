@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ICollection<Author>
+<div class="container col-md-8 text-center mt-3">
+<table class="table table-primary">
+    @if(TempData["Message"]!=null){
+        <tr>
+            <th colspan="6" class="text text-success h6">@TempData["Message"]</th>
+        </tr>
+    }
+    
+    <tr>
+        <th colspan="3" class="text text-success h2">Author List</th>
+        <th colspan="3" class="text text-success h2">
+            <a class="btn btn-info" asp-controller="Author" asp-action="Add">Add Author</a>
+        </th>
+    </tr>
+    <tr class="bg-light">
+        <th>Name</th>
+        <th>FullName</th>
+        <th>Imgae</th>
+        <th>Menu</th>
+    </tr>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>
+                    @author.Name
+                </td>
+                <td>
+                    @author.FullName
+                </td>
+               
+                <td>
+                    <a asp-controller="Author" asp-action="Detail" asp-route-id="@author.Id"><img src="@author.Image" width="100" height="100"></a>
+
+                </td>
+              
+                <td>
+                    <a class ="btn btn-primary"  asp-controller="Author" asp-action="Edit" asp-route-id="@author.Id">Edit</a>
+
+                    <a class ="btn btn-primary"  asp-controller="Author" asp-action="Delete" asp-route-id="@author.Id" Onclick="return confirm('Do you want to delete this author')">Delete</a>
+                </td>
+            </tr>
+        }
+
+</table>
+</div>

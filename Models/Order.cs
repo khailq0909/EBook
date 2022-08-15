@@ -18,4 +18,5 @@ namespace EBook.Models
         public DateTime OrderDate { get; set; }
 
     }
+
 }

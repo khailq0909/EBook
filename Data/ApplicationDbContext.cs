@@ -159,9 +159,9 @@ namespace EBook.Data
         {
 
             builder.Entity<BookAuthor>().HasData(
-                new BookAuthor { BookId = 4, AuthorId = 1 },
-                new BookAuthor { BookId = 5, AuthorId = 2 },
-                new BookAuthor { BookId = 5, AuthorId = 3 }
+                new BookAuthor { BookId = 1, AuthorId = 1 },
+                new BookAuthor { BookId = 2, AuthorId = 2 },
+                new BookAuthor { BookId = 3, AuthorId = 3 }
 
                );
         }

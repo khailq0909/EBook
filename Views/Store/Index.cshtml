@@ -1,0 +1,70 @@
+﻿@model ICollection<EBook.Models.Book>
+
+<div class="container text-center mt-3">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-outline-danger" asp-controller="Store" asp-action="Ascending">Price Ascending</a>
+            <a class="btn btn-outline-danger" asp-controller="Store" asp-action="Decending">Price Decending</a>
+        </div>
+        <div class="cpl">
+            <form asp-controller="Book" asp-action="Search" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="search" required name="keyword" placeholder="Search Here" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (Model.Count == 0)
+    {
+        <h4 class="text text-danger">Book Not Found</h4>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-danger">@TempData["Success"]</p>
+    }
+    <div class="card-group">
+        <div class="row">
+            @foreach (var b in Model)
+            {
+                <div class="col-md-3 p-3">
+                    <div class="card">
+                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@b.Id">
+                            <img class="card-img-top" src="@b.Image" width="100" height="150">
+                        </a>
+
+                        <div class="card-body">
+                            <a  class="text text-danger h1" asp-controller="Book" asp-action="Detail" asp-route-id="@b.Id">
+                                    @b.Name
+                            </a>
+
+                            <h5>
+                                Price: @b.Price $
+                            </h5>
+
+                        </div>
+
+                        @if (b.Quantity == 0)
+                        {
+                            <p>Out of stock</p>
+                        }
+                        else
+                        {
+                            <h6>
+                                Quantity: @b.Quantity
+                            </h6>
+
+
+                            <div class="card-body">
+                                <form asp-controller="Order" asp-action="MakeOrder">
+                                    <input type="hidden" name="id" value="@b.Id" />
+                                    <input type="number" name="quantity" min="1" max="@b.Quantity" />
+                                    <input type="submit" name="id" value="Add To Cart" />
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

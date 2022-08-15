@@ -24,6 +24,7 @@ namespace EBook.Models
 
         public int CategoryID { get; set; }// Foregin key (Link to Primary key in table Categories)
         public ICollection<BookAuthor> BookAuthor { get; set; }
+        public Category Category { get; set; }
 
         public ICollection<Order> Order { get; set; }
 

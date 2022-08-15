@@ -10,7 +10,7 @@ namespace EBook.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<Book> Books { get; set; }// dùng để truy xuất đến bảng book
+        public ICollection<Book> Book { get; set; }// dùng để truy xuất đến bảng book
 
 
     }

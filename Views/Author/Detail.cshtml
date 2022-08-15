@@ -1,5 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model EBook.Models.Author
+
+<div class="container col-md-10 text-center mt-3">
+    <div class="row">
+        <div class="col">
+            <img src="@Model.Image" width="300" height="300">
+            
+        </div>
+        <div class="col">
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2" class="h3 bg-light text-success">Book Info</th>
+                </tr>
+                <tr>
+                    <th>Book Price</th>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <td>@Model.FullName</td>
+                </tr>
+                <tr>
+                    <th>Full Birth</th>
+                    <td>@Model.Birth</td>
+                </tr>
+                <tr>
+                    <th>Author Description</th>
+                    <td>@Model.Descrtiption</td>
+                </tr>
+                <tr>
+                    <th>Book</th>
+                    @foreach (var a in Model.BookAuthor)
+                   {
+                       <td>
+                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@a.Book.Id">
+                            @a.Book.Name
+                        </a>
+                    </td>
+                   }  
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

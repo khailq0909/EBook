@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model EBook.Models.Author
+
+
+<form class="card p-3 bg-light" method="post" asp-controller="Author" asp-action="Add">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input  class="form-control" asp-for="Image"/>
+        <span class="text text-danger" asp-validation-for="Image"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input  class="form-control" asp-for="FullName"/>
+        <span class="text text-danger" asp-validation-for="FullName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Birth"></label>
+        <input  class="form-control" asp-for="Birth"/>
+        <span class="text text-danger" asp-validation-for="Birth"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descrtiption"></label>
+        <input  class="form-control" asp-for="Descrtiption"/>
+        <span class="text text-danger" asp-validation-for="Descrtiption"></span>
+    </div>
+
+
+    <div class="fomr-group">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>
