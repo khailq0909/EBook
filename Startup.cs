@@ -43,6 +43,7 @@ namespace EBook
                 options.Cookie.IsEssential = true;
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +70,10 @@ namespace EBook
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
 
             app.UseEndpoints(endpoints =>
             {

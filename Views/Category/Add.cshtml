@@ -1,5 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model EBook.Models.Category
+
+
+<form class="card p-3 bg-light" method="post" asp-controller="Category" asp-action="Add">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="fomr-group">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>

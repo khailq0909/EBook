@@ -1,7 +1,9 @@
 ﻿using EBook.Data;
 using EBook.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 
@@ -30,12 +32,12 @@ namespace EBook.Controllers
             order.TotalPrice = order.Book.Price * quantity;
             order.OrderDate = DateTime.Now;
             order.UserEmail = User.Identity.Name;
-            context.Order.Add(order);
+            HttpContext.Session.SetString("SessionOrder", JsonConvert.SerializeObject(order));
             book.Quantity -= quantity;
             context.Book.Update(book);
             context.SaveChanges();
-            TempData["Success"] = "Order Success";
-            return RedirectToAction("Store", "Book");
+            TempData["Success"] = "Add to cart Success";
+            return RedirectToAction("Index", "Store");
 
         }
         public IActionResult Delete(int? id)

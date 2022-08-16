@@ -61,6 +61,10 @@ namespace EBook.Controllers
         {
             //day danh sach category vaof 
             ViewBag.Category = context.Category.ToList();
+            var book = context.Book
+                .Include(b => b.BookAuthor)
+                .ThenInclude(m => m.Author)
+                .ToList();
             return View();
         }
         [HttpPost]

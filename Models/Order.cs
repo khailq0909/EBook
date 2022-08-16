@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EBook.Models
 {
+    [Serializable]
     public class Order
     {
         public int Id { get; set; }

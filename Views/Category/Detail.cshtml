@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model EBook.Models.Category
+
+<div class="container col-md-10 text-center mt-3">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <tr>
+                    <th colspan="2" class="h3 bg-light text-success">Book Info</th>
+                </tr>
+                <tr>
+                    <th>Book Price</th>
+                    <td>@Model.Name</td>
+                </tr>
+                @foreach (var b in Model.Book)
+                {
+                    <tr>
+                        <th>Book</th>
+                        <td>@b.Name</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

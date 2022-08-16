@@ -1,0 +1,57 @@
+﻿@model ICollection<EBook.Models.Order>
+
+<div class="container col-md-8 text-center mt-3">
+<table class="table table-primary">
+    @if(TempData["Message"]!=null){
+        <tr>
+            <th colspan="5" class="text text-success h6">@TempData["Message"]</th>
+        </tr>
+    }
+    
+    <tr>
+        <th colspan="4" class="text text-success h2">Order List</th>
+    </tr>
+    <tr class="bg-light">
+        <th>Email</th>
+        <th>Book</th>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>Total price</th>
+        <th>OrderDate</th>
+        <th>Menu</th>
+
+            @foreach (var o in Model)
+           {
+               <tr>
+                <td>
+                    @o.UserEmail
+                </td>
+
+                <td>
+                    @o.Book.Name
+                </td>
+                <td>
+                    <a asp-controller="Book" asp-action="Detail" asp-route-id="@o.Book.Id"><img src="@o.Book.Image" width="100" height="100"></a>
+
+                </td>
+                <td>
+                    @o.Quantity
+                </td>
+                <td>
+                    @o.TotalPrice   
+                </td>
+                <td>
+                    @o.OrderDate
+                </td>
+                 <td>
+                      <a class="btn btn-info" asp-controller="OrderDetail" asp-action="Add">Make order</a>
+
+                 </td>   
+                 </tr>
+           }
+                
+            
+
+
+</table>
+</div>
