@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220813115753_test")]
+    [Migration("20220817115358_test")]
     partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,9 @@ namespace EBook.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
@@ -111,6 +114,8 @@ namespace EBook.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Book");
@@ -119,6 +124,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 1,
+                            AuthorId = 1,
                             CategoryID = 1,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -128,6 +134,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 2,
+                            AuthorId = 1,
                             CategoryID = 1,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -137,6 +144,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 3,
+                            AuthorId = 2,
                             CategoryID = 2,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -146,6 +154,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 4,
+                            AuthorId = 1,
                             CategoryID = 2,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -155,6 +164,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 5,
+                            AuthorId = 3,
                             CategoryID = 3,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -164,6 +174,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 6,
+                            AuthorId = 2,
                             CategoryID = 3,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -173,6 +184,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 7,
+                            AuthorId = 1,
                             CategoryID = 2,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -182,6 +194,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 8,
+                            AuthorId = 3,
                             CategoryID = 1,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -191,6 +204,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 9,
+                            AuthorId = 2,
                             CategoryID = 3,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -200,6 +214,7 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 10,
+                            AuthorId = 1,
                             CategoryID = 1,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
@@ -209,43 +224,12 @@ namespace EBook.Migrations
                         new
                         {
                             Id = 11,
+                            AuthorId = 1,
                             CategoryID = 1,
                             Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg",
                             Name = "Iron Man",
                             Price = 22,
                             Quantity = 22
-                        });
-                });
-
-            modelBuilder.Entity("EBook.Models.BookAuthor", b =>
-                {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookId", "AuthorId");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("BookAuthor");
-
-                    b.HasData(
-                        new
-                        {
-                            BookId = 4,
-                            AuthorId = 1
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            AuthorId = 2
-                        },
-                        new
-                        {
-                            BookId = 5,
-                            AuthorId = 3
                         });
                 });
 
@@ -311,6 +295,24 @@ namespace EBook.Migrations
                     b.ToTable("Order");
                 });
 
+            modelBuilder.Entity("EBook.Models.RequestCT", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IsApproved")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestCT");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -341,21 +343,21 @@ namespace EBook.Migrations
                         new
                         {
                             Id = "A",
-                            ConcurrencyStamp = "588d09c5-05f0-447b-b5e2-2ad33d4ba811",
+                            ConcurrencyStamp = "f5f95176-26b0-473c-900c-8e17cf6aef72",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
                             Id = "B",
-                            ConcurrencyStamp = "f8a3d52a-2e06-4d5f-977d-97ecd61e7a9f",
+                            ConcurrencyStamp = "b598bd21-fb17-4b4e-9574-efe1ef2292ef",
                             Name = "StoreOwner",
                             NormalizedName = "StoreOwner"
                         },
                         new
                         {
                             Id = "C",
-                            ConcurrencyStamp = "6eec4720-5c06-48a7-a151-9b89e341dff1",
+                            ConcurrencyStamp = "d7d20a9e-7d4e-443c-bd56-255c12c059c3",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         });
@@ -454,14 +456,14 @@ namespace EBook.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83144213-d574-4244-8961-cf3aa39c9aee",
+                            ConcurrencyStamp = "838cea16-5a0c-42f7-8f7b-7af858ead9e7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEJjbAkaH3/JxEmkLTzfU5evwQC2coPxZZWw+PPhQnBFayWcpX3c4/NePJoxjyaZWw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENzU+KSpzc1Hu8fbIdJkxou0ucySda5xawfW8TsQevV2iFQyu6AkOVwXhyx34hezmA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9844e9c7-9e90-400a-beed-b2d49ebc5815",
+                            SecurityStamp = "3231947f-61ab-47cf-8b11-5357393e5f90",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -469,14 +471,14 @@ namespace EBook.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "239dc8b2-861d-4911-a18e-0eafeef6639e",
+                            ConcurrencyStamp = "c4d3391e-16dd-42fc-8c11-eb2f052926dd",
                             Email = "storeowner@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "storeowner@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC2pJ8KssK6OnQ8GcNfhF0mQu9sq+F76ueC0VIcStkyFio90q/Ir6n66EIxxyrF2Jw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFaZrH2Gz12gbMUETEpMMeBomq+ytcmRGQVfCSRq2s10nI3bwtPYlJWrQpPw2atQTw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "88b78663-4877-4cf0-8a36-b4b2841771d2",
+                            SecurityStamp = "b4707edd-684e-46de-ae73-e5a6cb62e46b",
                             TwoFactorEnabled = false,
                             UserName = "storeowner@gmail.com"
                         },
@@ -484,14 +486,14 @@ namespace EBook.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0000bfde-0724-403e-a289-efb67dc5a25d",
+                            ConcurrencyStamp = "e1a154c7-174c-4c28-b05e-7f76a8c34d61",
                             Email = "customer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "customer@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDYS5uY19s+Z/qmkLIrhBo+lmlN2iFR86e+nPnGBbbh6UaRojublJOEWfpSH++Du3Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJthhy8eVG/ZU0aL5HxgQGxlEQreDZvFtYiQMc/I+MEfSyoy3vSeykZH6dYnT8P54g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e01b03e9-e189-4ef7-ba33-9b5b0e8cc62a",
+                            SecurityStamp = "7769137a-3023-472f-880c-f214fb042b59",
                             TwoFactorEnabled = false,
                             UserName = "customer@gmail.com"
                         });
@@ -600,24 +602,15 @@ namespace EBook.Migrations
 
             modelBuilder.Entity("EBook.Models.Book", b =>
                 {
-                    b.HasOne("EBook.Models.Category", "Category")
-                        .WithMany("Book")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EBook.Models.BookAuthor", b =>
-                {
                     b.HasOne("EBook.Models.Author", "Author")
-                        .WithMany("BookAuthor")
+                        .WithMany("Book")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EBook.Models.Book", "Book")
-                        .WithMany("BookAuthor")
-                        .HasForeignKey("BookId")
+                    b.HasOne("EBook.Models.Category", "Category")
+                        .WithMany("Book")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

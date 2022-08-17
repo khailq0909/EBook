@@ -12,6 +12,13 @@
     <tr>
         <th colspan="4" class="text text-success h2">Order List</th>
     </tr>
+         <div class="col">
+            <form asp-controller="Order" asp-action="Search" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="search" required name="keyword" placeholder="Search Here" />
+                </div>
+            </form>
+        </div>
     <tr class="bg-light">
         <th>Email</th>
         <th>Book</th>

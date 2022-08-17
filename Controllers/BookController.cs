@@ -19,7 +19,7 @@ namespace EBook.Controllers
         }
 
         //View all book
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "StoreOwner")]
         public IActionResult Index()
         {
             //set book mới được hienr thị trên đầu danh sách
@@ -28,6 +28,7 @@ namespace EBook.Controllers
             return View(books);
         }
         //view book by id
+
         public IActionResult Detail(int? id)
         {
             if (id == null)
@@ -36,11 +37,11 @@ namespace EBook.Controllers
             }
             var book = context.Book
                 .Include(c => c.Category)
-                .Include(b => b.BookAuthor)
-                .ThenInclude(m => m.Author)
+                .Include(b => b.Author)
                 .FirstOrDefault(x => x.Id == id); //book object
             return View(book);
         }
+        [Authorize(Roles = "StoreOwner")]
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -57,17 +58,16 @@ namespace EBook.Controllers
 
         }
         [HttpGet]
+        [Authorize(Roles = "StoreOwner")]
         public IActionResult Add()
         {
             //day danh sach category vaof 
             ViewBag.Category = context.Category.ToList();
-            var book = context.Book
-                .Include(b => b.BookAuthor)
-                .ThenInclude(m => m.Author)
-                .ToList();
+            ViewBag.Author = context.Author.ToList();
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "StoreOwner")]
         public IActionResult Add(Book book)
 
         {
@@ -87,10 +87,12 @@ namespace EBook.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, StoreOwner")]
         public IActionResult Edit(int id)
 
         {
             ViewBag.Category = context.Category.ToList();
+            ViewBag.Author = context.Author.ToList();
             return View(context.Book.Find(id));
         }
         [HttpPost]

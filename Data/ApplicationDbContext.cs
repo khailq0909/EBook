@@ -18,8 +18,8 @@ namespace EBook.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<Author> Author { get; set; }
-        public DbSet<BookAuthor> BookAuthor { get; set; }
         public DbSet<Order> Order { get; set; }
+        public DbSet<RequestCT> RequestCT { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -31,11 +31,6 @@ namespace EBook.Data
             SeedUser(builder);
             SeedRole(builder);
             SeedUserRole(builder);
-            //set key cho bảng BookAuthor  
-            builder.Entity<BookAuthor>().HasKey(b => new { b.BookId, b.AuthorId });
-
-            //add dữ liệu cho bảng BookAuthor
-            SeedBookAuthor(builder);
         }
 
 
@@ -133,17 +128,17 @@ namespace EBook.Data
         private void SeedBook(ModelBuilder builder)
         {
             builder.Entity<Book>().HasData(
-                new Book { Id = 1, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1 },
-                new Book { Id = 2, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1 },
-                new Book { Id = 3, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2 },
-                new Book { Id = 4, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2 },
-                new Book { Id = 5, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3 },
-                new Book { Id = 6, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3 },
-                new Book { Id = 7, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2 },
-                new Book { Id = 8, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1 },
-                new Book { Id = 9, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3 },
-                new Book { Id = 10, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1 },
-                new Book { Id = 11, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1 }
+                new Book { Id = 1, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1, AuthorId = 1 },
+                new Book { Id = 2, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1, AuthorId = 1 },
+                new Book { Id = 3, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2, AuthorId = 2 },
+                new Book { Id = 4, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2, AuthorId = 1 },
+                new Book { Id = 5, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3, AuthorId = 3 },
+                new Book { Id = 6, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3, AuthorId = 2 },
+                new Book { Id = 7, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 2, AuthorId = 1 },
+                new Book { Id = 8, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1, AuthorId = 3 },
+                new Book { Id = 9, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 3, AuthorId = 2 },
+                new Book { Id = 10, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1, AuthorId = 1 },
+                new Book { Id = 11, Name = "Iron Man", Price = 22,Image = "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", Quantity = 22, CategoryID = 1, AuthorId = 1 }
                 );
 
         }
@@ -154,16 +149,6 @@ namespace EBook.Data
                 new Author { Id = 2, Name = "Hoa", FullName = "lai Quang Hopa", Birth = DateTime.Parse("12/09/1996"), Descrtiption = "edasdádasdas", Image = "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2021/11/19/975665/Kieu-Toc-Son-Tung-Mt.jpeg" },
                 new Author { Id = 3, Name = "Vinh", FullName = "lai Quang Vinh", Birth = DateTime.Parse("12/09/1996"), Descrtiption = "edasdádasdas", Image = "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2021/11/19/975665/Kieu-Toc-Son-Tung-Mt.jpeg" }
                 );
-        }
-        private void SeedBookAuthor(ModelBuilder builder)
-        {
-
-            builder.Entity<BookAuthor>().HasData(
-                new BookAuthor { BookId = 1, AuthorId = 1 },
-                new BookAuthor { BookId = 2, AuthorId = 2 },
-                new BookAuthor { BookId = 3, AuthorId = 3 }
-
-               );
         }
 
     }

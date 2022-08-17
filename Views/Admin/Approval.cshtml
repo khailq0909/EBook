@@ -1,0 +1,55 @@
+﻿@model ICollection<RequestCT>
+
+
+<div class="container col-md-8 text-center mt-3">
+    <table class="table table-primary">
+        @if (TempData["TB"] != null)
+        {
+            <tr>
+                <th colspan="5" class="text text-success h6">@TempData["Message"]</th>
+            </tr>
+        }
+
+        <tr>
+            <th colspan="2" class="text text-success h2">Request List</th>
+
+        </tr>
+        <tr class="bg-light">
+            <th>Category Name</th>
+            <th>Status</th>
+            <th>Menu</th>
+        </tr>
+        @foreach (var rq in Model)
+        {
+            <tr>
+                <td>
+                    @rq.Name
+                </td>
+                @if (@rq.IsApproved == "Pending")
+                {
+                    <td>
+                         <p>Pending</p>
+                    </td>
+                    <td><a class="btn btn-danger mb-3" asp-controller="Admin" asp-action="Reject" asp-route-id="@rq.Id">Reject</a>
+                    <a class="btn btn-info mb-3" asp-controller="Admin" asp-action="Approved" asp-route-id="@rq.Id">Approved</a></td>
+                }
+                else{
+                <td>
+                    @if (@rq.IsApproved == "Pending")
+                    {
+                        <p>Pending</p>
+                    }
+                    else
+                    {
+                        <p>@rq.IsApproved</p>
+                    }
+
+                </td>
+                }
+                
+
+            </tr>
+        }
+
+    </table>
+</div>

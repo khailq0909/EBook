@@ -26,15 +26,11 @@
         <span class="text text-danger" asp-validation-for="Price"></span>
     </div>
     <div class="form-group">
-    @foreach (var a in Model.BookAuthor)
-    {
-            <label asp-for="@a.Author.Id">Author</label>
-            <select asp-for="@a.Author.Id" class="form-control">
-                <option>Select Author</option>
-                <option value="@a.Author.Id">@a.Author.FullName</option>
-            </select>
-        
-    }
+        <label asp-for="AuthorId">AuThor</label>
+        <select asp-for="AuthorId" class="form-control" asp-items="@(new SelectList(ViewBag.Author,"Id", "Name"))">
+            <option>Select Author</option>
+        </select>
+        <span class="text text-danger" asp-validation-for="Image"></span>
     </div>
 
     <div class="form-group">

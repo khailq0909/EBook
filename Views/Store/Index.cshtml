@@ -7,7 +7,7 @@
             <a class="btn btn-outline-danger" asp-controller="Store" asp-action="Decending">Price Decending</a>
         </div>
         <div class="cpl">
-            <form asp-controller="Book" asp-action="Search" method="post">
+            <form asp-controller="Store" asp-action="Search" method="post">
                 <div class="form-group">
                     <input class="form-control" type="search" required name="keyword" placeholder="Search Here" />
                 </div>
@@ -22,6 +22,8 @@
     {
         <p class="alert alert-danger">@TempData["Success"]</p>
     }
+
+
     <div class="card-group">
         <div class="row">
             @foreach (var b in Model)
@@ -42,7 +44,8 @@
                             </h5>
 
                         </div>
-
+                        @if (User.Identity.IsAuthenticated)
+                        {                       
                         @if (b.Quantity == 0)
                         {
                             <p>Out of stock</p>
@@ -61,6 +64,7 @@
                                     <input type="submit" name="id" value="Add To Cart" />
                                 </form>
                             </div>
+                        }
                         }
                     </div>
                 </div>

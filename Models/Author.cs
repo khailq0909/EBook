@@ -27,6 +27,6 @@ namespace EBook.Models
         [Required]
         [MaxLength(200)]
         public string Descrtiption { get; set; }
-        public ICollection<BookAuthor> BookAuthor { get; set; }
+        public ICollection<Book> Book { get; set; }
     }
 }

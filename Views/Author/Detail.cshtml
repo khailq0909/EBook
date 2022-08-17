@@ -29,11 +29,11 @@
                 </tr>
                 <tr>
                     <th>Book</th>
-                    @foreach (var a in Model.BookAuthor)
+                    @foreach (var a in Model.Book)
                    {
                        <td>
-                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@a.Book.Id">
-                            @a.Book.Name
+                        <a asp-controller="Book" asp-action="Detail" asp-route-id="@a.Id">
+                            @a.Name
                         </a>
                     </td>
                    }  

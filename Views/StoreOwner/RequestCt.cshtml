@@ -1,0 +1,13 @@
+﻿@model EBook.Models.RequestCT
+
+
+<form class="card p-3 bg-light" method="post" asp-controller="StoreOwner" asp-action="RequestCT">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="fomr-group">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>

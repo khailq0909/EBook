@@ -30,14 +30,11 @@
                 </tr>
                 <tr>
                     <th>Book Author</th>
-                    @foreach (var a in Model.BookAuthor)
-                   {
                        <td>
-                        <a asp-controller="Author" asp-action="Detail" asp-route-id="@a.Author.Id">
-                            @a.Author.Name
+                        <a asp-controller="Author" asp-action="Detail" asp-route-id="@Model.Author.Id">
+                            @Model.Author.FullName
                         </a>
-                    </td>
-                   }  
+                    </td> 
                 </tr>
                 <tr>
                     <th>Book Category</th>

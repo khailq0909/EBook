@@ -77,6 +77,20 @@ namespace EBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RequestCT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    IsApproved = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestCT", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -192,39 +206,22 @@ namespace EBook.Migrations
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     Price = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    CategoryID = table.Column<int>(nullable: false)
+                    CategoryID = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Book", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Category_CategoryID",
-                        column: x => x.CategoryID,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookAuthor",
-                columns: table => new
-                {
-                    AuthorId = table.Column<int>(nullable: false),
-                    BookId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookAuthor", x => new { x.BookId, x.AuthorId });
-                    table.ForeignKey(
-                        name: "FK_BookAuthor_Author_AuthorId",
+                        name: "FK_Book_Author_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Author",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookAuthor_Book_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Book",
+                        name: "FK_Book_Category_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -257,9 +254,9 @@ namespace EBook.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "A", "588d09c5-05f0-447b-b5e2-2ad33d4ba811", "Admin", "Admin" },
-                    { "B", "f8a3d52a-2e06-4d5f-977d-97ecd61e7a9f", "StoreOwner", "StoreOwner" },
-                    { "C", "6eec4720-5c06-48a7-a151-9b89e341dff1", "Customer", "Customer" }
+                    { "A", "f5f95176-26b0-473c-900c-8e17cf6aef72", "Admin", "Admin" },
+                    { "B", "b598bd21-fb17-4b4e-9574-efe1ef2292ef", "StoreOwner", "StoreOwner" },
+                    { "C", "d7d20a9e-7d4e-443c-bd56-255c12c059c3", "Customer", "Customer" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,9 +264,9 @@ namespace EBook.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "83144213-d574-4244-8961-cf3aa39c9aee", "admin@gmail.com", false, false, null, null, "admin@gmail.com", "AQAAAAEAACcQAAAAEEJjbAkaH3/JxEmkLTzfU5evwQC2coPxZZWw+PPhQnBFayWcpX3c4/NePJoxjyaZWw==", null, false, "9844e9c7-9e90-400a-beed-b2d49ebc5815", false, "admin@gmail.com" },
-                    { "2", 0, "239dc8b2-861d-4911-a18e-0eafeef6639e", "storeowner@gmail.com", false, false, null, null, "storeowner@gmail.com", "AQAAAAEAACcQAAAAEC2pJ8KssK6OnQ8GcNfhF0mQu9sq+F76ueC0VIcStkyFio90q/Ir6n66EIxxyrF2Jw==", null, false, "88b78663-4877-4cf0-8a36-b4b2841771d2", false, "storeowner@gmail.com" },
-                    { "3", 0, "0000bfde-0724-403e-a289-efb67dc5a25d", "customer@gmail.com", false, false, null, null, "customer@gmail.com", "AQAAAAEAACcQAAAAEDYS5uY19s+Z/qmkLIrhBo+lmlN2iFR86e+nPnGBbbh6UaRojublJOEWfpSH++Du3Q==", null, false, "e01b03e9-e189-4ef7-ba33-9b5b0e8cc62a", false, "customer@gmail.com" }
+                    { "1", 0, "838cea16-5a0c-42f7-8f7b-7af858ead9e7", "admin@gmail.com", false, false, null, null, "admin@gmail.com", "AQAAAAEAACcQAAAAENzU+KSpzc1Hu8fbIdJkxou0ucySda5xawfW8TsQevV2iFQyu6AkOVwXhyx34hezmA==", null, false, "3231947f-61ab-47cf-8b11-5357393e5f90", false, "admin@gmail.com" },
+                    { "2", 0, "c4d3391e-16dd-42fc-8c11-eb2f052926dd", "storeowner@gmail.com", false, false, null, null, "storeowner@gmail.com", "AQAAAAEAACcQAAAAEFaZrH2Gz12gbMUETEpMMeBomq+ytcmRGQVfCSRq2s10nI3bwtPYlJWrQpPw2atQTw==", null, false, "b4707edd-684e-46de-ae73-e5a6cb62e46b", false, "storeowner@gmail.com" },
+                    { "3", 0, "e1a154c7-174c-4c28-b05e-7f76a8c34d61", "customer@gmail.com", false, false, null, null, "customer@gmail.com", "AQAAAAEAACcQAAAAEJthhy8eVG/ZU0aL5HxgQGxlEQreDZvFtYiQMc/I+MEfSyoy3vSeykZH6dYnT8P54g==", null, false, "7769137a-3023-472f-880c-f214fb042b59", false, "customer@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -304,36 +301,21 @@ namespace EBook.Migrations
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "Id", "CategoryID", "Image", "Name", "Price", "Quantity" },
+                columns: new[] { "Id", "AuthorId", "CategoryID", "Image", "Name", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 2, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 8, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 10, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 11, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 3, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 4, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 7, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 5, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 6, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
-                    { 9, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 }
+                    { 1, 1, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 2, 1, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 8, 3, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 10, 1, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 11, 1, 1, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 3, 2, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 4, 1, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 7, 1, 2, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 5, 3, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 6, 2, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 },
+                    { 9, 2, 3, "https://booksupnorth.com/wp-content/uploads/2020/10/The-Iron-Man-PB-Cover-High-res-scaled.jpg", "Iron Man", 22, 22 }
                 });
-
-            migrationBuilder.InsertData(
-                table: "BookAuthor",
-                columns: new[] { "BookId", "AuthorId" },
-                values: new object[] { 4, 1 });
-
-            migrationBuilder.InsertData(
-                table: "BookAuthor",
-                columns: new[] { "BookId", "AuthorId" },
-                values: new object[] { 5, 2 });
-
-            migrationBuilder.InsertData(
-                table: "BookAuthor",
-                columns: new[] { "BookId", "AuthorId" },
-                values: new object[] { 5, 3 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -375,14 +357,14 @@ namespace EBook.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Book_AuthorId",
+                table: "Book",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Book_CategoryID",
                 table: "Book",
                 column: "CategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BookAuthor_AuthorId",
-                table: "BookAuthor",
-                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_BookId",
@@ -408,10 +390,10 @@ namespace EBook.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BookAuthor");
+                name: "Order");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "RequestCT");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -420,10 +402,10 @@ namespace EBook.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Author");
+                name: "Book");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "Author");
 
             migrationBuilder.DropTable(
                 name: "Category");

@@ -16,7 +16,7 @@ namespace EBook.Controllers
         }
         public IActionResult Index()
         {
-            return View(context.Author.ToList());
+            return View(context.Author.OrderByDescending(b => b.Id).ToList());
         }
         public IActionResult Detail(int? id)
         {
@@ -25,8 +25,7 @@ namespace EBook.Controllers
                 return NotFound();
             }
             var author = context.Author
-                .Include(b => b.BookAuthor)
-                .ThenInclude(m => m.Book)
+                .Include(m => m.Book)
                 .FirstOrDefault(x => x.Id == id); //book object
             return View(author);
         }
